@@ -37,8 +37,8 @@ public class ApartmentController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @Operation(summary = "Registrar uma nova casa",
-            description = "Criação de um novo registro de casa com imagens.")
+    @Operation(summary = "Registrar uma novo apartamento",
+            description = "Criação de um novo registro de apartamento com imagens.")
     public ResponseEntity<Object> save(
             @Parameter(description = "Imagens da propriedade",
                     content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
@@ -51,7 +51,7 @@ public class ApartmentController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Editar House", description = "")
+    @Operation(summary = "Editar Apartamento", description = "")
     public ResponseEntity<Object> updateEquipment(@PathVariable(value = "id") UUID id,
                                                   @RequestBody @Valid ApartmentDTO apartmentDTO) throws IOException {
         var apartment = apartmentService.update(id, apartmentDTO);
