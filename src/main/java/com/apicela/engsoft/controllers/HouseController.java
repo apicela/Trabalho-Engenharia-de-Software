@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController()
 @Tag(name = "2. House ", description = "CRUD")
@@ -53,5 +54,17 @@ public class HouseController {
 
         houseDTO.setImages(images);
         return ResponseEntity.status(HttpStatus.CREATED).body(houseService.save(houseDTO));
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Editar House", description = "")
+    public ResponseEntity<Object> updateEquipment(@PathVariable(value = "id") UUID id,
+                                                  @RequestBody @Valid HouseDTO houseDTO) throws IOException {
+        var house = houseService.update(id, houseDTO);
+        if(house == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado objeto para o ID");
+        } else{
+            return ResponseEntity.status(HttpStatus.OK).body(house);
+        }
     }
 }
