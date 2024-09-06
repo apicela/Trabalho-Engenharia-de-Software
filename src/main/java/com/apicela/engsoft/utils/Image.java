@@ -1,11 +1,11 @@
 package com.apicela.engsoft.utils;
 
 import com.apicela.engsoft.models.Property;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.UUID;
 

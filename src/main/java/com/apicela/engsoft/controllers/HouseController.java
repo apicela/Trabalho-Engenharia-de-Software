@@ -1,10 +1,8 @@
 package com.apicela.engsoft.controllers;
 
 import com.apicela.engsoft.dtos.HouseDTO;
-import com.apicela.engsoft.models.Property;
 import com.apicela.engsoft.models.residencial.House;
 import com.apicela.engsoft.services.HouseService;
-import com.apicela.engsoft.utils.converter.HouseMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,16 +11,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,9 +56,9 @@ public class HouseController {
     public ResponseEntity<Object> updateEquipment(@PathVariable(value = "id") UUID id,
                                                   @RequestBody @Valid HouseDTO houseDTO) throws IOException {
         var house = houseService.update(id, houseDTO);
-        if(house == null){
+        if (house == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado objeto para o ID");
-        } else{
+        } else {
             return ResponseEntity.status(HttpStatus.OK).body(house);
         }
     }

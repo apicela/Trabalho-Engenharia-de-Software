@@ -1,7 +1,7 @@
 package com.apicela.engsoft.models.residencial;
 
 import com.apicela.engsoft.models.Property;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

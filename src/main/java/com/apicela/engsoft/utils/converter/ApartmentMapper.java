@@ -1,7 +1,7 @@
 package com.apicela.engsoft.utils.converter;
 
-import com.apicela.engsoft.dtos.HouseDTO;
-import com.apicela.engsoft.models.residencial.House;
+import com.apicela.engsoft.dtos.ApartmentDTO;
+import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.services.ImageService;
 import com.apicela.engsoft.utils.Image;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +18,17 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 @Log4j2
-public class HouseMapper {
+public class ApartmentMapper {
     final ModelMapper mapper = new ModelMapper();
     final ImageService imageService;
 
-    public House mapDtoToEntity(HouseDTO houseDTO) throws IOException {
-        House house = mapper.map(houseDTO, House.class);
-        log.info("houseDTO images: {}", Arrays.toString(houseDTO.getImages()));
+    public Apartment mapDtoToEntity(ApartmentDTO apartmentDTO) throws IOException {
+        Apartment house = mapper.map(apartmentDTO, Apartment.class);
+        log.info("apartmentDTO images: {}", Arrays.toString(apartmentDTO.getImages()));
         // Lógica para converter MultipartFile[] para Set<Image>
-        Set<Image> images = new HashSet<>();
-        if (houseDTO.getImages() != null) {
-            for (MultipartFile file : houseDTO.getImages()) {
+        Set<Image> images = new HashSet<>();// Supondo que apartmentDTO tenha um método getImages()
+        if (apartmentDTO.getImages() != null) {
+            for (MultipartFile file : apartmentDTO.getImages()) {
                 Image image = imageService.convertMultipartFileToImage(file);
                 image.setProperty(house);
                 images.add(image);
@@ -39,8 +39,8 @@ public class HouseMapper {
         return house;
     }
 
-    public HouseDTO mapEntityToDto(House house) {
-        return mapper.map(house, HouseDTO.class);
+    public ApartmentDTO mapEntityToDto(Apartment apartment) {
+        return mapper.map(apartment, ApartmentDTO.class);
     }
 
 }

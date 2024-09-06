@@ -1,15 +1,10 @@
 package com.apicela.engsoft.dtos;
 
 import com.apicela.engsoft.utils.Address;
-import com.apicela.engsoft.utils.Image;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Set;
 
 @Data // getters and setters
 @NoArgsConstructor

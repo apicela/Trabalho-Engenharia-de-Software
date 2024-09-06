@@ -26,7 +26,7 @@ public abstract class Property {
     private Address address;
 
     private boolean isRented;
-    private float  rentValue;
+    private float rentValue;
     private String description;
     private float area;
     private int rooms;

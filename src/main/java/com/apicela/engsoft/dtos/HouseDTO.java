@@ -1,18 +1,12 @@
 package com.apicela.engsoft.dtos;
 
-import com.apicela.engsoft.models.residencial.House;
 import com.apicela.engsoft.utils.Address;
-import com.apicela.engsoft.utils.Image;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Set;
 
 @Data // getters and setters
 @NoArgsConstructor
