@@ -31,7 +31,7 @@ public class ApartmentController {
     final ApartmentService apartmentService;
 
     @GetMapping
-    @Operation(summary = "Obter todas casas", description = "Here, you can get a list of objects")
+    @Operation(summary = "Obter todos apartamentos", description = "Here, you can get a list of objects")
     public ResponseEntity<List<Apartment>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(apartmentService.getAll());
     }
