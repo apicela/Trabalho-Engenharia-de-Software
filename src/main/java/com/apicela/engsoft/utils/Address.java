@@ -1,10 +1,10 @@
 package com.apicela.engsoft.utils;
 
-import com.apicela.engsoft.models.Imovel;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
 import lombok.Data;
 
-
+@Data
+@Embeddable
 public class Address  {
-
+    private String street;
 }

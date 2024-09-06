@@ -1,17 +1,17 @@
-package com.apicela.engsoft.models;
+package com.apicela.engsoft.dtos;
 
 import com.apicela.engsoft.utils.Address;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@Data // getters and setters
 @NoArgsConstructor
-@Data
-public abstract class Imovel {
-    private boolean isRented = false;
+@AllArgsConstructor
+public class HouseDTO {
+    private boolean isRented;
     private Address address;
-    private float  rentValue;
+    private float rentValue;
     private String description;
     private float area;
     private int rooms;
