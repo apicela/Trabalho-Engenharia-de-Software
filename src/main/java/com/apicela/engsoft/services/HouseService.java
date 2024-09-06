@@ -29,7 +29,7 @@ public class HouseService {
     public House save(HouseDTO houseDTO) throws IOException {
         log.info("houseDTO: {}", houseDTO);
         var house = mapper.mapDtoToEntity(houseDTO);
-        log.info("houseMapped: {}", house);
+        log.info("houseMapped: {}", house.toString());
         return houseRepository.save(house);
     }
 
