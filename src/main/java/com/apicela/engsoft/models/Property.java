@@ -2,6 +2,7 @@ package com.apicela.engsoft.models;
 
 import com.apicela.engsoft.utils.Address;
 import com.apicela.engsoft.utils.Image;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ public abstract class Property {
     @Embedded
     private Address address;
 
-    private boolean isRented = false;
+    private boolean isRented;
     private float  rentValue;
     private String description;
     private float area;
@@ -33,7 +34,7 @@ public abstract class Property {
     private int livingRoom;
     private int vacanciesGarage;
     private boolean closets;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Image> images;
 }

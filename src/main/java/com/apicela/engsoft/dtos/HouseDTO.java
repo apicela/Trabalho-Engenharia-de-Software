@@ -1,7 +1,10 @@
 package com.apicela.engsoft.dtos;
 
+import com.apicela.engsoft.models.residencial.House;
 import com.apicela.engsoft.utils.Address;
 import com.apicela.engsoft.utils.Image;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -25,5 +28,7 @@ public class HouseDTO {
     private int livingRoom;
     private int vacanciesGarage;
     private boolean closets;
+    @JsonIgnore
+    @Schema(type = "array", format = "binary", description = "Imagens da propriedade")
     private MultipartFile[] images;
 }

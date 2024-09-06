@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.UUID;
 
@@ -25,6 +26,7 @@ public class Image {
     @Column(columnDefinition = "BYTEA")
     private byte[] imageData;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
