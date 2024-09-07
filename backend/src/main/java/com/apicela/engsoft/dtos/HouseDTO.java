@@ -1,5 +1,6 @@
 package com.apicela.engsoft.dtos;
 
+import com.apicela.engsoft.models.PropertyType;
 import com.apicela.engsoft.utils.Address;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseDTO {
+    private PropertyType propertyType;
     private boolean isRented;
     private Address address;
     private float rentValue;

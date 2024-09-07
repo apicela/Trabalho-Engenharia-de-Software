@@ -22,6 +22,8 @@ public abstract class Property {
     @GeneratedValue
     private UUID id;
 
+    private PropertyType propertyType;
+
     @Embedded
     private Address address;
 

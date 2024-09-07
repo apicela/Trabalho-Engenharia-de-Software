@@ -1,5 +1,6 @@
 package com.apicela.engsoft.dtos;
 
+import com.apicela.engsoft.models.PropertyType;
 import com.apicela.engsoft.utils.Address;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApartmentDTO {
+    private PropertyType propertyType;
     private boolean isRented;
     private Address address;
     private float rentValue;
