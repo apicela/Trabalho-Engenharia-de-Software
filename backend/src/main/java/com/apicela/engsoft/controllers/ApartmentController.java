@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @RestController()
 @Tag(name = "3. Apartment ", description = "CRUD")
-@RequestMapping("/apartment")
+@RequestMapping("/apartments")
 @RequiredArgsConstructor
 @Log4j2
 @CrossOrigin("*")

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController()
 @Tag(name = "1. Property ", description = "CRUD")
-@RequestMapping("/property")
+@RequestMapping("/properties")
 @Log4j2
 @CrossOrigin("*")
 public class PropertyController {

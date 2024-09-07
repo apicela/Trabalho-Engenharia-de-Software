@@ -7,16 +7,17 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
 import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-
 public abstract class Property {
     @Id
     @GeneratedValue
