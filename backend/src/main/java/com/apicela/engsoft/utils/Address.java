@@ -1,6 +1,7 @@
 package com.apicela.engsoft.utils;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Embeddable
+@AllArgsConstructor
 @NoArgsConstructor
 public class Address {
     private String street;
