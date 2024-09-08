@@ -1,3 +1,11 @@
+## ⚙️ Como configurar aplicação para rodar frontend + backend juntos
+ - Requisitos obrigatórios: Docker
+1. Clone este repositório: ``` git clone git@github.com:apicela/Trabalho-Engenharia-de-Software.git ```
+2. Acesse a pasta raíz
+3. Execute o seguinte comando no terminal: `docker-compose up --build`
+4. Acesse o link: https://localhost:3000/ 
+
+
 ## Grupo: André Henrique, Jamil Apicela, Laura Campos, Vitor Martins
 
 Neste trabalho prático, o aluno deverá criar uma aplicação Web que contenha
