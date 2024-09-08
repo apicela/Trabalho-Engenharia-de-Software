@@ -16,6 +16,12 @@ const router = createRouter({
       component: () => import('../views/Swagger.vue')
     },
     {
+      path: '/property',
+      name: 'property',
+
+      component: () => import('../views/properties/Property.vue')
+    },
+    {
       path: '/properties',
       name: 'properties',
       component: PropertiesView
