@@ -30,8 +30,10 @@
               <td>{{ properties.address.street }}</td>
               <td>R$ {{ properties.rentValue }}</td>
               <td align="center">
-                <RouterLink class="nav-link" 
-                      :to="{ name: 'property', params: { id: properties.id } }">
+                <RouterLink
+                  class="nav-link"
+                  :to="{ name: 'property', params: { id: properties.id } }"
+                >
                   <button
                     type="button"
                     class="btn btn-primary"
@@ -87,17 +89,47 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="propertyValue">CEP</label>
+                    <label for="cep">CEP</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cep"
+                      v-model="cep"
+                      @input="fetchAddress"
+                      required
+                      placeholder="30000000"
+                      maxlength="8"
+                      minlength="8"
+                    />
+                    <p v-if="errorMessage" class="text-danger">
+                      {{ errorMessage }}
+                    </p>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-10">
+                                          <label for="adress">Endereço</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="address"
+                      v-model="address"
+                      placeholder="Preencha o CEP"
+                      readonly
+                    />
+                  </div>
+                  <div class="col-md-2">
+                    <label for="number">Número</label>
                     <input
                       type="number"
                       class="form-control"
-                      id="propertyValue"
-                      v-model="property.value"
+                      id="number"
+                      min="1"
+                      v-model="property.address.number"
                       required
-                      placeholder="Ex: 300000"
                     />
                   </div>
-
+                </div>
                   <div class="form-group">
                     <label for="description">Descrição</label>
                     <input
@@ -107,9 +139,8 @@
                       v-model="property.description"
                       required
                       placeholder="Ex: Bem localizado, próximo ao parque X"
-                    />
-                  </div>
-
+                    />                  
+                </div>
                   <div class="form-group row">
                     <div class="col-md-6">
                       <label for="rentValue">Valor do Aluguel</label>
@@ -118,17 +149,19 @@
                         class="form-control"
                         id="rentValue"
                         v-model="property.rentValue"
+                        min="0"
                         required
                         placeholder="Ex: 1500"
                       />
                     </div>
                     <div
                       class="col-md-6"
-                      v-if="property.type === 'APARTAMENTO'"
+                      v-if="property.propertyType === 'APARTAMENTO'"
                     >
                       <label for="condominiumValue">Valor do Condomínio</label>
                       <input
                         type="number"
+                        min="0"
                         class="form-control"
                         id="condominiumValue"
                         required
@@ -136,7 +169,7 @@
                         placeholder="Digite o valor do condomínio"
                       />
                     </div>
-                    <div v-if="property.type === 'APARTAMENTO'">
+                    <div v-if="property.propertyType === 'APARTAMENTO'">
                       <label for="concierge24h">Porteiro 24h</label>
                       <select
                         class="form-control"
@@ -151,11 +184,12 @@
 
                     <div
                       class="col-md-6"
-                      v-if="property.type === 'APARTAMENTO'"
+                      v-if="property.propertyType === 'APARTAMENTO'"
                     >
                       <label for="floorNumber">Número do Andar</label>
                       <input
                         type="number"
+                        min="0"
                         required
                         class="form-control"
                         id="floor"
@@ -178,6 +212,7 @@
                       <label for="rooms">Quartos</label>
                       <input
                         type="number"
+                        min="0"
                         class="form-control"
                         id="rooms"
                         v-model="property.rooms"
@@ -189,6 +224,7 @@
                       <label for="suits">Suites</label>
                       <input
                         type="number"
+                        min="0"
                         class="form-control"
                         id="suits"
                         v-model="property.suits"
@@ -200,6 +236,7 @@
                       <label for="livingRoom">Salas de estar</label>
                       <input
                         type="number"
+                        min="0"
                         class="form-control"
                         id="livingRoom"
                         v-model="property.livingRoom"
@@ -209,11 +246,12 @@
                     </div>
                     <div
                       class="col-md-3"
-                      v-if="property.type === 'APARTAMENTO'"
+                      v-if="property.propertyType === 'APARTAMENTO'"
                     >
                       <label for="diningRoom">Salas jantar</label>
                       <input
                         type="number"
+                        min="0"
                         class="form-control"
                         id="diningRoom"
                         v-model="property.diningRoom"
@@ -224,6 +262,7 @@
                       <label for="vacanciesGarage">Vagas na Garagem</label>
                       <input
                         type="number"
+                        min="0"
                         class="form-control"
                         id="vacanciesGarage"
                         v-model="property.vacanciesGarage"
@@ -531,39 +570,39 @@ export default {
       this.property.images = Array.from(files);
     },
     createFormData(property) {
-  const formData = new FormData();
+      const formData = new FormData();
 
-  // Adiciona campos simples
-  formData.append('propertyType', property.propertyType);
-  formData.append('rentValue', property.rentValue);
-  formData.append('description', property.description);
-  formData.append('area', property.area);
-  formData.append('rooms', property.rooms);
-  formData.append('suits', property.suits);
-  formData.append('livingRoom', property.livingRoom);
-  formData.append('vacanciesGarage', property.vacanciesGarage);
-  formData.append('closets', property.closets);
-  formData.append('floor', property.floor);
-  formData.append('diningRoom', property.diningRoom);
-  formData.append('condominiumValue', property.condominiumValue);
-  formData.append('concierge24h', property.concierge24h);
+      // Adiciona campos simples
+      formData.append("propertyType", property.propertyType);
+      formData.append("rentValue", property.rentValue);
+      formData.append("description", property.description);
+      formData.append("area", property.area);
+      formData.append("rooms", property.rooms);
+      formData.append("suits", property.suits);
+      formData.append("livingRoom", property.livingRoom);
+      formData.append("vacanciesGarage", property.vacanciesGarage);
+      formData.append("closets", property.closets);
+      formData.append("floor", property.floor);
+      formData.append("diningRoom", property.diningRoom);
+      formData.append("condominiumValue", property.condominiumValue);
+      formData.append("concierge24h", property.concierge24h);
 
-  // Adiciona endereço (campos aninhados)
-  formData.append('address.street', property.address.street);
-  formData.append('address.neighborhood', property.address.neighborhood);
-  formData.append('address.city', property.address.city);
-  formData.append('address.state', property.address.state);
-  formData.append('address.region', property.address.region);
-  formData.append('address.cep', property.address.cep);
-  formData.append('address.complement', property.address.complement);
+      // Adiciona endereço (campos aninhados)
+      formData.append("address.street", property.address.street);
+      formData.append("address.neighborhood", property.address.neighborhood);
+      formData.append("address.city", property.address.city);
+      formData.append("address.state", property.address.state);
+      formData.append("address.region", property.address.region);
+      formData.append("address.cep", property.address.cep);
+      formData.append("address.complement", property.address.complement);
 
-  // Adiciona imagens (assumindo que são arquivos)
-  for (let i = 0; i < property.images.length; i++) {
-    formData.append('images', property.images[i]);
-  }
+      // Adiciona imagens (assumindo que são arquivos)
+      for (let i = 0; i < property.images.length; i++) {
+        formData.append("images", property.images[i]);
+      }
 
-  return formData;
-},
+      return formData;
+    },
     getAllProperties() {
       axios
         .get("http://localhost:8080/properties")
@@ -604,25 +643,61 @@ export default {
       this.$refs.registerPropertyModel.style.display = "none";
     },
     submitProperty() {
-      let formData = this.createFormData(this.property)
-      let API_URL = this.property.propertyType == "CASA" ? "http://localhost:8080/houses" : "http://localhost:8080/apartments"
+      let formData = this.createFormData(this.property);
+      let API_URL =
+        this.property.propertyType == "CASA"
+          ? "http://localhost:8080/houses"
+          : "http://localhost:8080/apartments";
       axios
-          .post(API_URL, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            this.openSucessModel(response.data);
-            this.getAllProperties();
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log("modal data: ", error.response.data);
-            this.openErrorModel(error.response.data);
-          });
+        .post(API_URL, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          this.openSucessModel(response.data);
+          this.getAllProperties();
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log("modal data: ", error.response.data);
+          this.openErrorModel(error.response.data);
+        });
       console.log(this.property);
       this.closeRegisterPropertyModel();
+    },
+    async fetchAddress() {
+      if (this.cep.length === 8) {
+        try {
+          const response = await fetch(
+            `https://viacep.com.br/ws/${this.cep}/json/`
+          );
+          const data = await response.json();
+          if (data.erro) {
+            this.cep = ''
+            this.errorMessage = "Erro ao buscar o CEP.";
+            this.address = null;
+            this.$forceUpdate();
+          } else {
+            this.address = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+            console.log("cep data:" + JSON.stringify(data))
+            this.$forceUpdate();
+          }
+        } catch (error) {
+          this.cep = ''
+          this.errorMessage = "Erro ao buscar o CEP.";
+          this.$forceUpdate();
+          this.address = null;
+        }
+      } else if(this.cep.length > 8){
+        this.errorMessage = "CEP deve ter exatamente 8 dígitos.";
+        this.cep = ''
+        this.address = null;
+      } else{
+        this.errorMessage = "CEP deve ter exatamente 8 dígitos.";
+        this.address = null;
+      }
+
     },
   },
 };
