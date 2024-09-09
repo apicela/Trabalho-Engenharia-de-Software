@@ -38,6 +38,6 @@ public abstract class Property {
     private int vacanciesGarage;
     private boolean closets;
     @JsonManagedReference
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true,  fetch = FetchType.LAZY)
     private Set<Image> images;
 }

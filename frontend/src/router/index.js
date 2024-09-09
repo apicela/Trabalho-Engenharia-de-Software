@@ -16,9 +16,9 @@ const router = createRouter({
       component: () => import('../views/Swagger.vue')
     },
     {
-      path: '/property',
+      path: '/property/:id',
       name: 'property',
-
+      props: true,
       component: () => import('../views/properties/Property.vue')
     },
     {

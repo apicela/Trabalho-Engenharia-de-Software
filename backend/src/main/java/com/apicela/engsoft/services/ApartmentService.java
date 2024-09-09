@@ -26,9 +26,8 @@ public class ApartmentService {
 
     @Transactional
     public Apartment save(ApartmentDTO apartmentDTO) throws IOException {
-        log.info("houseDTO: {}", apartmentDTO);
         var apartment = mapper.mapDtoToEntity(apartmentDTO);
-        log.info("houseMapped: {}", apartment.toString());
+        log.info("Save apartment service");
         return apartmentRepository.save(apartment);
     }
 

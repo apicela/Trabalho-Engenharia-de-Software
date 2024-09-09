@@ -30,7 +30,8 @@
               <td>{{ properties.address.street }}</td>
               <td>R$ {{ properties.rentValue }}</td>
               <td align="center">
-                <RouterLink class="nav-link" to="/property">
+                <RouterLink class="nav-link" 
+                      :to="{ name: 'property', params: { id: properties.id } }">
                   <button
                     type="button"
                     class="btn btn-primary"
@@ -75,7 +76,7 @@
                     <select
                       class="form-control"
                       id="propertyType"
-                      v-model="property.type"
+                      v-model="property.propertyType"
                       required
                     >
                       <option value="" disabled selected>
@@ -103,7 +104,7 @@
                       type="text"
                       class="form-control"
                       id="description"
-                      v-model="property.address"
+                      v-model="property.description"
                       required
                       placeholder="Ex: Bem localizado, próximo ao parque X"
                     />
@@ -251,7 +252,7 @@
                       accept="image/jpeg, image/png"
                       id="images"
                       multiple
-                      @change="handleFileChange"
+                      @change="handleFileSelect"
                       class="file-input"
                     />
                   </div>
@@ -522,10 +523,47 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted");
-    //this.getAllProperties();
+    this.getAllProperties();
   },
   methods: {
+    handleFileSelect(event) {
+      const files = event.target.files;
+      this.property.images = Array.from(files);
+    },
+    createFormData(property) {
+  const formData = new FormData();
+
+  // Adiciona campos simples
+  formData.append('propertyType', property.propertyType);
+  formData.append('rentValue', property.rentValue);
+  formData.append('description', property.description);
+  formData.append('area', property.area);
+  formData.append('rooms', property.rooms);
+  formData.append('suits', property.suits);
+  formData.append('livingRoom', property.livingRoom);
+  formData.append('vacanciesGarage', property.vacanciesGarage);
+  formData.append('closets', property.closets);
+  formData.append('floor', property.floor);
+  formData.append('diningRoom', property.diningRoom);
+  formData.append('condominiumValue', property.condominiumValue);
+  formData.append('concierge24h', property.concierge24h);
+
+  // Adiciona endereço (campos aninhados)
+  formData.append('address.street', property.address.street);
+  formData.append('address.neighborhood', property.address.neighborhood);
+  formData.append('address.city', property.address.city);
+  formData.append('address.state', property.address.state);
+  formData.append('address.region', property.address.region);
+  formData.append('address.cep', property.address.cep);
+  formData.append('address.complement', property.address.complement);
+
+  // Adiciona imagens (assumindo que são arquivos)
+  for (let i = 0; i < property.images.length; i++) {
+    formData.append('images', property.images[i]);
+  }
+
+  return formData;
+},
     getAllProperties() {
       axios
         .get("http://localhost:8080/properties")
@@ -536,34 +574,6 @@ export default {
         .catch((err) => {
           console.error("Error fetching properties", err);
         });
-    },
-    attachFile() {
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = ".pdf,.txt"; // extensoes
-      input.onchange = (e) => {
-        const file = e.target.files[0];
-        console.log("Arquivo selecionado: ", file);
-        let formData = new FormData();
-        formData.append("file", file);
-
-        axios
-          .post("http://localhost:8080/properties", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then((response) => {
-            this.openSucessModel(response.data);
-            this.getAllProperties();
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log("modal data: ", error.response.data);
-            this.openErrorModel(error.response.data);
-          });
-      };
-      input.click();
     },
     openTransfersModel(transacoes) {
       this.modalData = transacoes;
@@ -594,7 +604,23 @@ export default {
       this.$refs.registerPropertyModel.style.display = "none";
     },
     submitProperty() {
-      // Lógica para salvar os dados do imóvel
+      let formData = this.createFormData(this.property)
+      let API_URL = this.property.propertyType == "CASA" ? "http://localhost:8080/houses" : "http://localhost:8080/apartments"
+      axios
+          .post(API_URL, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            this.openSucessModel(response.data);
+            this.getAllProperties();
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log("modal data: ", error.response.data);
+            this.openErrorModel(error.response.data);
+          });
       console.log(this.property);
       this.closeRegisterPropertyModel();
     },
