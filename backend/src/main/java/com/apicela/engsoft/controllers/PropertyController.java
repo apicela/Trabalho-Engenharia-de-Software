@@ -1,14 +1,10 @@
 package com.apicela.engsoft.controllers;
 
-import com.apicela.engsoft.dtos.HouseDTO;
 import com.apicela.engsoft.models.Property;
-import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.services.PropertyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +35,7 @@ public class PropertyController {
         var property = propertyService.getById(id);
         if (property == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado objeto para o ID");
-        }
-        else {
+        } else {
             return ResponseEntity.status(HttpStatus.OK).body(property);
         }
     }

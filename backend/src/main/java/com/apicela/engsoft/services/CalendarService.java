@@ -1,12 +1,7 @@
 package com.apicela.engsoft.services;
 
-import com.apicela.engsoft.dtos.HouseDTO;
 import com.apicela.engsoft.models.calendar.Calendar;
-import com.apicela.engsoft.models.residencial.House;
 import com.apicela.engsoft.repositories.CalendarRepository;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,7 +28,7 @@ public class CalendarService {
         return calendarRepository.findByPropertyId(id);
     }
 
-    public List<Calendar> getAll(){
+    public List<Calendar> getAll() {
         return calendarRepository.findAll();
     }
 

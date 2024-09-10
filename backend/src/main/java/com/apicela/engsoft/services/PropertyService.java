@@ -4,7 +4,6 @@ import com.apicela.engsoft.models.Property;
 import com.apicela.engsoft.repositories.PropertyRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,6 @@ public class PropertyService {
             var object = optionalProperty.get();
             log.info("obj to return: {}", object);
             return object;
-        }
-        else return null;
+        } else return null;
     }
 }

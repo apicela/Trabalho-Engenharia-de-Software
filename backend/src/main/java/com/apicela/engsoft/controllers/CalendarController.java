@@ -24,7 +24,7 @@ public class CalendarController {
     @GetMapping()
     @Operation(summary = "Obter todos", description = "")
     public ResponseEntity<Object> getAll() throws IOException {
-            return ResponseEntity.status(HttpStatus.OK).body(calendarService.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(calendarService.getAll());
     }
 
     @GetMapping("/{id}")
@@ -52,7 +52,7 @@ public class CalendarController {
     @PutMapping("/{id}")
     @Operation(summary = "Editar Calendario", description = "")
     public ResponseEntity<Object> updateCalendar(@PathVariable(value = "id") UUID id,
-                                                 @RequestBody  String startTime) throws IOException {
+                                                 @RequestBody String startTime) throws IOException {
         log.info("{}", startTime);
         var calendar = calendarService.update(id, startTime);
         if (calendar == null) {

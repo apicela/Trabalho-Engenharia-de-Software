@@ -5,9 +5,6 @@ import com.apicela.engsoft.models.calendar.Calendar;
 import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.repositories.ApartmentRepository;
 import com.apicela.engsoft.utils.converter.ApartmentMapper;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,7 +28,7 @@ public class ApartmentService {
         var apartment = mapper.mapDtoToEntity(apartmentDTO);
         log.info("Save apartment service");
         var savedObject = apartmentRepository.save(apartment);
-        var calendar =  Calendar.builder()
+        var calendar = Calendar.builder()
                 .propertyId(savedObject.getId()).build();
         calendarService.save(calendar);
         return savedObject;

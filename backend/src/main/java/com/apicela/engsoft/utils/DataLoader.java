@@ -3,8 +3,6 @@ package com.apicela.engsoft.utils;
 import com.apicela.engsoft.dtos.ApartmentDTO;
 import com.apicela.engsoft.dtos.HouseDTO;
 import com.apicela.engsoft.models.PropertyType;
-import com.apicela.engsoft.models.residencial.Apartment;
-import com.apicela.engsoft.models.residencial.House;
 import com.apicela.engsoft.services.ApartmentService;
 import com.apicela.engsoft.services.HouseService;
 import lombok.RequiredArgsConstructor;

@@ -20,9 +20,9 @@ public class PropertyServiceTest {
 
     @Test
     @Transactional
-     void obterPropriedade(){
+    void obterPropriedade() {
         Apartment apartment = Apartment.builder()
-                .description( " Penthouse")
+                .description(" Penthouse")
                 .rentValue(400f)
                 .address(null)
                 .propertyType(PropertyType.APARTAMENTO)
