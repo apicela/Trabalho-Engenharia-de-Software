@@ -17,5 +17,4 @@ public class Apartment extends Property {
     private int diningRoom;
     private float condominiumValue;
     private boolean concierge24h;
-
 }

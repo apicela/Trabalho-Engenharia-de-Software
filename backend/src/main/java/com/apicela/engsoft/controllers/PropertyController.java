@@ -2,6 +2,7 @@ package com.apicela.engsoft.controllers;
 
 import com.apicela.engsoft.dtos.HouseDTO;
 import com.apicela.engsoft.models.Property;
+import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.services.PropertyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,8 +39,8 @@ public class PropertyController {
         var property = propertyService.getById(id);
         if (property == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado objeto para o ID");
-        } else {
-            Hibernate.initialize(property.getImages());
+        }
+        else {
             return ResponseEntity.status(HttpStatus.OK).body(property);
         }
     }

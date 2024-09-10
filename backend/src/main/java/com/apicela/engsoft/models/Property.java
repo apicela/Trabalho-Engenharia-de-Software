@@ -1,8 +1,11 @@
 package com.apicela.engsoft.models;
 
+import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.utils.Address;
 import com.apicela.engsoft.utils.Image;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +20,7 @@ import java.util.UUID;
 @SuperBuilder
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Property {
     @Id
     @GeneratedValue
@@ -38,6 +41,6 @@ public abstract class Property {
     private int vacanciesGarage;
     private boolean closets;
     @JsonManagedReference
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true,  fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true,  fetch = FetchType.EAGER)
     private Set<Image> images;
 }

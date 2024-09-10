@@ -35,6 +35,7 @@ public class DataLoader implements CommandLineRunner {
                     .description(names.get(names.size() - i - 1) + " Penthouse")
                     .rentValue((float) faker.number().randomDouble(2, 700, 4333))
                     .address(address)
+                    .condominiumValue(1500f)
                     .propertyType(PropertyType.APARTAMENTO)
                     .build();
 
