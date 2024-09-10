@@ -1,3 +1,10 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-000?style=for-the-badge&logo=java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring-000?style=for-the-badge&logo=spring&logoColor=green"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-black?style=for-the-badge&logo=postgresql&logoColor=blue"/>
+ <img src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D"/>
+ <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"/>
+</p>
 ## ⚙️ Como configurar aplicação para rodar frontend + backend juntos
  - Requisitos obrigatórios: Docker
 1. Clone este repositório: ``` git clone git@github.com:apicela/Trabalho-Engenharia-de-Software.git ```
