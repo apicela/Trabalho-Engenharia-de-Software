@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Calendar;
 import java.util.Set;
 import java.util.UUID;
 
@@ -40,6 +41,7 @@ public abstract class Property {
     private int livingRoom;
     private int vacanciesGarage;
     private boolean closets;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true,  fetch = FetchType.EAGER)
     private Set<Image> images;
