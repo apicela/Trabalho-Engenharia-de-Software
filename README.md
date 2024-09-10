@@ -5,6 +5,8 @@
  <img src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D"/>
  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"/>
 </p>
+
+
 ## ⚙️ Como configurar aplicação para rodar frontend + backend juntos
  - Requisitos obrigatórios: Docker
 1. Clone este repositório: ``` git clone git@github.com:apicela/Trabalho-Engenharia-de-Software.git ```
