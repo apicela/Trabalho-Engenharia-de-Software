@@ -27,7 +27,14 @@ public class ApartmentMapper {
         log.info("apartmentDTO images: {}", Arrays.toString(apartmentDTO.getImages()));
         // Lógica para converter MultipartFile[] para Set<Image>
         Set<Image> images = new HashSet<>();// Supondo que apartmentDTO tenha um método getImages()
-        if (apartmentDTO.getImages() != null) {
+        if(apartmentDTO.getImagesSet() != null){
+            apartmentDTO.getImagesSet().forEach( it ->{
+                        it.setId(null);
+                        it.setProperty(house);
+                    });
+
+            images = apartmentDTO.getImagesSet();
+        } else if (apartmentDTO.getImages() != null) {
             for (MultipartFile file : apartmentDTO.getImages()) {
                 Image image = imageService.convertMultipartFileToImage(file);
                 image.setProperty(house);

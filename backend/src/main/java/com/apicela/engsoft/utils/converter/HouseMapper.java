@@ -27,15 +27,22 @@ public class HouseMapper {
         log.info("houseDTO images: {}", Arrays.toString(houseDTO.getImages()));
         // Lógica para converter MultipartFile[] para Set<Image>
         Set<Image> images = new HashSet<>();
-        if (houseDTO.getImages() != null) {
+
+        if(houseDTO.getImagesSet() != null){
+            houseDTO.getImagesSet().forEach( it ->{
+                        it.setId(null);
+                        it.setProperty(house);
+                    });
+            images = houseDTO.getImagesSet();
+        } else if (houseDTO.getImages() != null) {
             for (MultipartFile file : houseDTO.getImages()) {
                 Image image = imageService.convertMultipartFileToImage(file);
+                log.info(image.getId());
                 image.setProperty(house);
                 images.add(image);
             }
         }
         house.setImages(images);
-
         return house;
     }
 

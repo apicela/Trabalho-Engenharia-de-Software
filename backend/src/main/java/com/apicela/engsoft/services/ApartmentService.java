@@ -4,6 +4,7 @@ import com.apicela.engsoft.dtos.ApartmentDTO;
 import com.apicela.engsoft.models.calendar.Calendar;
 import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.repositories.ApartmentRepository;
+import com.apicela.engsoft.utils.Image;
 import com.apicela.engsoft.utils.converter.ApartmentMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service

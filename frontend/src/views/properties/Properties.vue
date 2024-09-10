@@ -24,15 +24,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(properties, index) in this.properties" :key="index">
-              <td>{{ properties.propertyType }}</td>
-              <td>{{ properties.description }}</td>
-              <td>{{ properties.address.street }}</td>
-              <td>R$ {{ properties.rentValue }}</td>
+            <tr v-for="(property, index) in this.properties" :key="index">
+              <td>{{ property.propertyType }}</td>
+              <td>{{ property.description }}</td>
+              <td>{{ property.address.street }},
+          {{ property.address.number }}, {{ property.address.neighborhood }},
+          {{ property.address.city }}/{{ property.address.state }} -
+          {{ property.address.cep }}</td>
+              <td>R$ {{ property.rentValue }}</td>
               <td align="center">
                 <RouterLink
                   class="nav-link"
-                  :to="{ name: 'property', params: { id: properties.id } }"
+                  :to="{ name: 'property', params: { id: property.id } }"
                 >
                   <button
                     type="button"
@@ -233,7 +236,7 @@
                       />
                     </div>
                     <div class="col-md-3">
-                      <label for="livingRoom">Salas de estar</label>
+                      <label for="livingRoom">Salas Estar</label>
                       <input
                         type="number"
                         min="0"
@@ -346,7 +349,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Detalhes da Duplicata</h5>
+                <h5 class="modal-title">Detalhes da Propriedade</h5>
                 <button
                   type="button"
                   class="close"
