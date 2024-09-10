@@ -107,7 +107,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                                           <label for="adress">Endereço</label>
                     <input
                       type="text"
@@ -118,14 +118,14 @@
                       readonly
                     />
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <label for="number">Número</label>
                     <input
                       type="number"
                       class="form-control"
                       id="number"
                       min="1"
-                      v-model="property.address.number"
+                      v-model.number="property.address.number"
                       required
                     />
                   </div>
@@ -293,6 +293,7 @@
                       multiple
                       @change="handleFileSelect"
                       class="file-input"
+                      required
                     />
                   </div>
                   <button type="submit" class="btn btn-primary">Salvar</button>
@@ -303,7 +304,7 @@
         </div>
 
         <!-- Modal de transferencia -->
-        <div class="modal" tabindex="-1" role="dialog" ref="transfersModel">
+        <div class="modal" tabindex="-1" role="dialog" ref="scheduleModel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -357,34 +358,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <p>Arquivo CNAB enviado e processado com sucesso!</p>
-                <br />
-                <h6>Transferências realizadas:</h6>
-
-                <ul
-                  v-if="
-                    modalData &&
-                    modalData.duplicata &&
-                    modalData.duplicata.transacoes
-                  "
-                  v-for="(transacao, index) in modalData.duplicata.transacoes"
-                  :key="index"
-                >
-                  <li>{{ index + 1 }}:</li>
-                  <p style="margin-left: 6%">
-                    Tipo de Transação: {{ transacao.tipoTransacao }}
-                  </p>
-                  <p style="margin-left: 6%">
-                    Valor da Transação: {{ transacao.valorTransacao }}
-                  </p>
-                  <p style="margin-left: 6%">
-                    Conta de Origem: {{ transacao.contaOrigem }}
-                  </p>
-                  <p style="margin-left: 6%">
-                    Conta de Destino: {{ transacao.contaDestino }}
-                  </p>
-                  <br />
-                </ul>
+                <p>Propriedade registrada com sucesso!</p>
               </div>
             </div>
           </div>
@@ -431,108 +405,7 @@ export default {
   name: "properties",
   data() {
     return {
-      properties: [
-        {
-          id: "283c3ab8-b091-4670-b741-eafcc17dee06",
-          propertyType: "APARTAMENTO",
-          address: {
-            street: "Rua dos bobos",
-            neighborhood: null,
-            city: null,
-            state: null,
-            region: null,
-            cep: null,
-            complement: null,
-          },
-          rentValue: 3520.97,
-          description: "Martins Penthouse",
-          area: 0,
-          rooms: 0,
-          suits: 0,
-          livingRoom: 0,
-          vacanciesGarage: 0,
-          closets: false,
-          images: [],
-          floor: 0,
-          diningRoom: 0,
-          condominiumValue: 0,
-          concierge24h: false,
-          rented: false,
-        },
-        {
-          id: "e58d53c3-9014-4d48-9c33-33fdc8b78738",
-          propertyType: "CASA",
-          address: {
-            street: "Rua dos bobos",
-            neighborhood: null,
-            city: null,
-            state: null,
-            region: null,
-            cep: null,
-            complement: null,
-          },
-          rentValue: 3592.63,
-          description: "Apicela House",
-          area: 0,
-          rooms: 0,
-          suits: 0,
-          livingRoom: 0,
-          vacanciesGarage: 0,
-          closets: false,
-          images: [],
-          rented: false,
-        },
-        {
-          id: "4b64b2ed-1293-4c8c-9840-dfaf0f21b68a",
-          propertyType: "APARTAMENTO",
-          address: {
-            street: "Rua dos bobos",
-            neighborhood: null,
-            city: null,
-            state: null,
-            region: null,
-            cep: null,
-            complement: null,
-          },
-          rentValue: 1094.27,
-          description: "Costa Penthouse",
-          area: 0,
-          rooms: 0,
-          suits: 0,
-          livingRoom: 0,
-          vacanciesGarage: 0,
-          closets: false,
-          images: [],
-          floor: 0,
-          diningRoom: 0,
-          condominiumValue: 0,
-          concierge24h: false,
-          rented: false,
-        },
-        {
-          id: "a867e492-83fa-47de-bd59-1eb62e683797",
-          propertyType: "CASA",
-          address: {
-            street: "Rua dos bobos",
-            neighborhood: null,
-            city: null,
-            state: null,
-            region: null,
-            cep: null,
-            complement: null,
-          },
-          rentValue: 3706.91,
-          description: "Campos House",
-          area: 0,
-          rooms: 0,
-          suits: 0,
-          livingRoom: 0,
-          vacanciesGarage: 0,
-          closets: false,
-          images: [],
-          rented: false,
-        },
-      ],
+      properties: [],
       modalData: [],
       property: {
         propertyType: "",
@@ -543,6 +416,7 @@ export default {
           state: "",
           region: "",
           cep: "",
+          number : "",
           complement: "",
         },
         rentValue: "",
@@ -595,6 +469,7 @@ export default {
       formData.append("address.region", property.address.region);
       formData.append("address.cep", property.address.cep);
       formData.append("address.complement", property.address.complement);
+      formData.append("address.number", property.address.number);
 
       // Adiciona imagens (assumindo que são arquivos)
       for (let i = 0; i < property.images.length; i++) {
@@ -679,7 +554,18 @@ export default {
             this.address = null;
             this.$forceUpdate();
           } else {
+            this.errorMessage = ''
             this.address = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+            this.property.address =  {
+                  street: data.logradouro,
+                  neighborhood: data.bairro,
+                  city: data.localidade,
+                  state: data.uf,
+                  region: data.regiao,
+                  cep: data.cep,
+                  complement: data.complement,
+                  number : number
+                }
             console.log("cep data:" + JSON.stringify(data))
             this.$forceUpdate();
           }
