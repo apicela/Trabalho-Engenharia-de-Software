@@ -1,5 +1,6 @@
 package com.apicela.engsoft.models.calendar;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,6 @@ public class Calendar {
 
     @PostLoad
     private void initializeAvailableTimeSlots() {
-        // Define os intervalos de horários
         if (availableTimeSlots == null || availableTimeSlots.isEmpty()) {
             generateAvailableTimeSlots();
         }
@@ -59,7 +59,9 @@ public class Calendar {
     @NoArgsConstructor
     @Embeddable
     public static class TimeSlot {
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
         private LocalTime startTime;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
         private LocalTime endTime;
         private boolean available;
     }
