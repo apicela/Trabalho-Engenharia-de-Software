@@ -1,10 +1,12 @@
 package com.apicela.engsoft.utils;
 
+import com.apicela.engsoft.dtos.ApartmentDTO;
+import com.apicela.engsoft.dtos.HouseDTO;
 import com.apicela.engsoft.models.PropertyType;
 import com.apicela.engsoft.models.residencial.Apartment;
 import com.apicela.engsoft.models.residencial.House;
-import com.apicela.engsoft.repositories.ApartmentRepository;
-import com.apicela.engsoft.repositories.HouseRepository;
+import com.apicela.engsoft.services.ApartmentService;
+import com.apicela.engsoft.services.HouseService;
 import lombok.RequiredArgsConstructor;
 import net.datafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
@@ -19,8 +21,8 @@ import java.util.List;
 public class DataLoader implements CommandLineRunner {
 
     // Injete seus repositórios ou serviços necessários
-    private final HouseRepository houseRepository;
-    private final ApartmentRepository apartmentRepository;
+    private final HouseService houseService;
+    private final ApartmentService apartmentService;
 
     private final Faker faker = new Faker();
     // Construtor para injeção de dependência
@@ -31,7 +33,7 @@ public class DataLoader implements CommandLineRunner {
         address.setStreet("Rua dos bobos");
         List<String> names = new ArrayList<>(Arrays.asList("Apicela", "Campos", "Costa", "Martins"));
         for (int i = 0; i < 2; i++) {
-            Apartment apartment = Apartment.builder()
+            ApartmentDTO apartment = ApartmentDTO.builder()
                     .description(names.get(names.size() - i - 1) + " Penthouse")
                     .rentValue((float) faker.number().randomDouble(2, 700, 4333))
                     .address(address)
@@ -39,15 +41,15 @@ public class DataLoader implements CommandLineRunner {
                     .propertyType(PropertyType.APARTAMENTO)
                     .build();
 
-            House house = House.builder()
+            HouseDTO house = HouseDTO.builder()
                     .description(names.get(i) + " House")
                     .rentValue((float) faker.number().randomDouble(2, 700, 4333))
                     .address(address)
                     .propertyType(PropertyType.CASA)
                     .build();
 
-            apartmentRepository.save(apartment);
-            houseRepository.save(house);
+            apartmentService.save(apartment);
+            houseService.save(house);
 
         }
 

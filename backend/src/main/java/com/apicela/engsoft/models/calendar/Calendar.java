@@ -30,7 +30,9 @@ public class Calendar {
     @PostLoad
     private void initializeAvailableTimeSlots() {
         // Define os intervalos de horários
-        generateAvailableTimeSlots();
+        if (availableTimeSlots == null || availableTimeSlots.isEmpty()) {
+            generateAvailableTimeSlots();
+        }
     }
 
     private void generateAvailableTimeSlots() {

@@ -21,6 +21,12 @@ import java.util.UUID;
 public class CalendarController {
     final CalendarService calendarService;
 
+    @GetMapping()
+    @Operation(summary = "Obter todos", description = "")
+    public ResponseEntity<Object> getAll() throws IOException {
+            return ResponseEntity.status(HttpStatus.OK).body(calendarService.getAll());
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Obter Por ID", description = "")
     public ResponseEntity<Object> getById(@PathVariable(value = "id") UUID id) throws IOException {
@@ -32,10 +38,22 @@ public class CalendarController {
         }
     }
 
+    @GetMapping("propertyId/{propertyId}")
+    @Operation(summary = "Obter Por ID", description = "")
+    public ResponseEntity<Object> getByPropertyId(@PathVariable(value = "propertyId") UUID id) throws IOException {
+        var calendar = calendarService.findByPropertyId(id);
+        if (calendar == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado objeto para o ID");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(calendar);
+        }
+    }
+
     @PutMapping("/{id}")
     @Operation(summary = "Editar Calendario", description = "")
     public ResponseEntity<Object> updateCalendar(@PathVariable(value = "id") UUID id,
                                                  @RequestBody  String startTime) throws IOException {
+        log.info("{}", startTime);
         var calendar = calendarService.update(id, startTime);
         if (calendar == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado objeto para o ID");
