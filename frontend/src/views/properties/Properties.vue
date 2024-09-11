@@ -306,44 +306,6 @@
           </div>
         </div>
 
-        <!-- Modal de transferencia -->
-        <div class="modal" tabindex="-1" role="dialog" ref="scheduleModel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Transferencias</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                  @click="closeTransfersModel"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <ul v-for="(transacao, index) in modalData" :key="index">
-                  <li>{{ index + 1 }}:</li>
-                  <p style="margin-left: 6%">
-                    Tipo de Transação: {{ transacao.tipoTransacao }}
-                  </p>
-                  <p style="margin-left: 6%">
-                    Valor da Transação: {{ transacao.valorTransacao }}
-                  </p>
-                  <p style="margin-left: 6%">
-                    Conta de Origem: {{ transacao.contaOrigem }}
-                  </p>
-                  <p style="margin-left: 6%">
-                    Conta de Destino: {{ transacao.contaDestino }}
-                  </p>
-                  <br />
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Modal de sucesso -->
         <div class="modal" tabindex="-1" role="dialog" ref="sucessModel">
           <div class="modal-dialog" role="document">
